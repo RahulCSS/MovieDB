@@ -2,7 +2,7 @@ import React from 'react'
 
 function WatchList() {
   return (
-    <div>WatchList</div>
+        <div>WatchList</div>
   )
 }
 

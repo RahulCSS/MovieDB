@@ -1,17 +1,34 @@
 import React from 'react'
+import Pagination from './Pagination';
+import MovieCard from './MovieCard';
+import { useState, useEffect } from'react';
+import axios from 'axios';
 
 function Trending() {
+
+    const [movies, setmovies] = useState([]);
+    useEffect(() =>{
+        axios.get('https://api.themoviedb.org/3/trending/movie/day?api_key=c6b78ed205890e81b37365fd4acc063f')
+        .then(function(response){
+            setmovies(response.data.results);
+        })
+    },[]);
+
+    if(movies.length == 0){
+        return<>...Loading</>
+    }
+
   return (
     <>
-    <div className='mx-2 font-bold text-2xl text-center'>Trending Movies</div>
-    <div className='flex flex-wrap justify-around gap-4 m-4'>
-        <div className='flex items-end h-56 w-36 rounded-lg overflow-hidden bg-cover bg-center bg-no-repeat bg-[url("https://images.unsplash.com/photo-1639921884918-8d28ab2e39a4?q=80&w=2030&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D")]'>
-            <div className='text-white py-0.5 bg-gray-600/35 w-screen text-center'>
-            John Wick
-            </div>
+        <div className='m-2 font-bold text-2xl text-center'>Trending Movies</div>
+        <div className='flex flex-wrap justify-around gap-3 m-2'>
+            {
+                movies.map((movieObj)=>{
+                    return <MovieCard key={movieObj.id} title={movieObj.title} poster_path={movieObj.poster_path}/>
+                })
+            }
         </div>
-        
-    </div>
+            <Pagination/>
     </>
   )
 }
