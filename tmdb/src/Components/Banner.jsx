@@ -9,11 +9,11 @@ function Banner() {
     useEffect(()=>{
         axios.get('https://api.themoviedb.org/3/trending/movie/day?api_key=c6b78ed205890e81b37365fd4acc063f')
         .then(function(response){
-            console.log(response);
+            //* console.log(response);
             let movies = response.data.results;
-            console.log(movies);
+            //* console.log(movies);
             let random = movies[Math.floor(Math.random()*11)];
-            console.log(random);
+            //* console.log(random);
             setmovieObj(random);
         })
     },[])
@@ -26,7 +26,7 @@ function Banner() {
   return (
     <div className='flex items-end h-[50vh] bg-cover bg-center bg-no-repeat'
             style={{backgroundImage: `url(https://image.tmdb.org/t/p/original${movieObj.backdrop_path})`}}>
-        <div className='text-white py-2 bg-gray-600/35 w-screen text-2xl text-center'>
+        <div className='text-white py-2 bg-gray-600/35 w-screen text-3xl text-center'>
         {movieObj.title}
         </div>
     </div>
