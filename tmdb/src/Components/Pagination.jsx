@@ -1,8 +1,9 @@
-import React, { useState } from 'react'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faArrowRight,faArrowLeft } from '@fortawesome/free-solid-svg-icons';
-function Pagination(props) {
-    const {pageNo,handleNext,handlePrev} = props;
+import { useContext } from 'react';
+import { MovieContext } from './MovieContext';
+function Pagination() {
+    const {pageNo,handleNext,handlePrev} = useContext(MovieContext);
    
   return (
     <div>

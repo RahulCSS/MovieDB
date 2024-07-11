@@ -1,8 +1,10 @@
-import React from 'react'
+import React, { useContext } from 'react'
 import {CircularProgressbar,buildStyles} from 'react-circular-progressbar';
 import 'react-circular-progressbar/dist/styles.css';
+import { MovieContext } from './MovieContext';
 function MovieCard(props) {
-    const {id,title, poster_path,vote_average,watchList,handleAddtoWatchList,handleRemovefromWatchList} = props;
+    const {movieObj,title, poster_path,vote_average} = props;
+    const {watchList,handleAddtoWatchList,handleRemovefromWatchList} = useContext(MovieContext)
     const percentage = Math.ceil(vote_average*10);
     let pathColor;
     if(percentage>65){
@@ -11,6 +13,15 @@ function MovieCard(props) {
         pathColor = '#e7ea38';
     }else if(percentage<33 && percentage>=0){
         pathColor = '#0177d1';
+    }
+
+    function isContain(movieObj){
+        for(let i=0; i<watchList.length;i++){
+            if(movieObj.id === watchList[i].id){
+                return true;
+            }
+        }
+        return false;
     }
   return (
     <div className='flex flex-col justify-between items-end h-60 w-40 rounded-lg overflow-hidden bg-cover bg-center bg-no-repeat hover:scale-[1.10] duration-200' 
@@ -32,11 +43,11 @@ function MovieCard(props) {
                                         })}/>
             </div>
             
-            {watchList.includes(id)?
+            {isContain(movieObj)?(
             <div className='text-2xl cursor-pointer decoration-slate-50 cursor-pointer' 
-                            onClick={()=>handleRemovefromWatchList(id)}>&#128525;</div>:
+                            onClick={()=>handleRemovefromWatchList(movieObj)}>&#128525;</div>):(
             <div className='text-2xl cursor-pointer decoration-slate-50 cursor-pointer' 
-                            onClick={()=>handleAddtoWatchList(id)}>&#128522;</div>
+                            onClick={()=>handleAddtoWatchList(movieObj)}>&#128522;</div>)
             }
         </div>
         <div className='text-white py-0.5 bg-gray-600/35 w-full text-base text-center'>
