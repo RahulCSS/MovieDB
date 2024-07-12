@@ -26,9 +26,9 @@ const genreId ={
     };
 function WatchList() {
     const {watchList,setwatchList,handleRemovefromWatchList} = useContext(MovieContext)
-    const [genreList,setgenreList] = useState(["All Genres"]);
+    const [genreList,setgenreList] = useState(["All Genre"]);
     const [search,setsearch] = useState("");
-    const [currGenre, setCurrGenre] = useState("All Genres");
+    const [currGenre, setCurrGenre] = useState("All Genre");
 
     function handleIncrease(){
        const sorted = watchList.sort((movieA,movieB) => movieA.vote_average-movieB.vote_average);
@@ -80,7 +80,7 @@ function WatchList() {
     const filteredMovies = () => {
         return watchList
           .filter((movie) => {
-            if (currGenre === "All Genres") {
+            if (currGenre === "All Genre") {
               return true;
             } else {
               return genreId[movie.genre_ids[0]] === currGenre;
